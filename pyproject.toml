@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "nthweekday"
+name = "monthweekday"
 version = "1.0.0"
 description = "Find the nth weekday of a month (third Thursday, last Friday), read RFC 5545 BYDAY values, zero dependencies"
 readme = "README.md"
@@ -33,18 +33,18 @@ dependencies = []
 dev = ["ruff", "mypy", "pytest", "pytest-timeout", "python-dateutil", "build", "twine"]
 
 [project.scripts]
-nthweekday = "nthweekday._cli:main"
+monthweekday = "monthweekday._cli:main"
 
 [project.urls]
 Homepage = "https://lianes8studio.com"
-Source = "https://github.com/JaviLianes8/nthweekday"
-Issues = "https://github.com/JaviLianes8/nthweekday/issues"
-Changelog = "https://github.com/JaviLianes8/nthweekday/blob/main/CHANGELOG.md"
+Source = "https://github.com/JaviLianes8/monthweekday"
+Issues = "https://github.com/JaviLianes8/monthweekday/issues"
+Changelog = "https://github.com/JaviLianes8/monthweekday/blob/main/CHANGELOG.md"
 LinkedIn = "https://www.linkedin.com/in/jlianes/"
 Funding = "https://buymeacoffee.com/jlianesglrs"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/nthweekday"]
+packages = ["src/monthweekday"]
 
 [tool.hatch.build.targets.sdist]
 # Upstream copies are fetched locally and never shipped; only their manifest is.

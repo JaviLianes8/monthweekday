@@ -11,7 +11,7 @@ from datetime import date, timedelta
 
 import pytest
 
-from nthweekday import (
+from monthweekday import (
     ByDay,
     Weekday,
     byday_dates,
@@ -19,7 +19,7 @@ from nthweekday import (
     nth_weekday_in_year,
     parse_byday,
 )
-from nthweekday._cli import main
+from monthweekday._cli import main
 
 PIECES = [
     "SU",

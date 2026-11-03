@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from nthweekday._cli import main
+from monthweekday._cli import main
 
 
 def _run(capsys: pytest.CaptureFixture[str], *args: str) -> tuple[int, str, str]:
@@ -34,7 +34,7 @@ def test_signed_byday_is_not_taken_for_an_option(capsys: pytest.CaptureFixture[s
 def test_options_may_come_after_a_signed_byday(capsys: pytest.CaptureFixture[str]) -> None:
     assert _run(capsys, "1998", "-1SU", "--yearly")[:2] == (0, "1998-12-27\n")
     code, out, _ = _run(capsys, "2026-11", "-1FR", "-h")
-    assert code == 0 and out.startswith("usage: nthweekday")
+    assert code == 0 and out.startswith("usage: monthweekday")
 
 
 def test_an_explicit_double_dash_keeps_a_signed_byday(capsys: pytest.CaptureFixture[str]) -> None:
@@ -80,10 +80,10 @@ def test_bad_input_exits_2(
 
 
 def test_version(capsys: pytest.CaptureFixture[str]) -> None:
-    from nthweekday import __version__
+    from monthweekday import __version__
 
     code, out, _ = _run(capsys, "--version")
-    assert (code, out) == (0, f"nthweekday {__version__}\n")
+    assert (code, out) == (0, f"monthweekday {__version__}\n")
 
 
 def test_python_m_exits_with_the_code_of_main() -> None:
@@ -95,7 +95,7 @@ def test_python_m_exits_with_the_code_of_main() -> None:
     ]
     for args, code, out in cases:
         done = subprocess.run(
-            [sys.executable, "-m", "nthweekday", *args],
+            [sys.executable, "-m", "monthweekday", *args],
             capture_output=True,
             text=True,
             env=env,

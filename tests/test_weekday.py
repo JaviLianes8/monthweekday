@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 import pytest
 
-from nthweekday import MONDAY, SUNDAY, Weekday
+from monthweekday import MONDAY, SUNDAY, Weekday
 
 
 def test_numbering_matches_date_weekday_and_isoweekday() -> None:

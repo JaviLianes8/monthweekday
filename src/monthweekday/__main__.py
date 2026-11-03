@@ -1,4 +1,4 @@
-"""Allow ``python -m nthweekday``."""
+"""Allow ``python -m monthweekday``."""
 
 from __future__ import annotations
 

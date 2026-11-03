@@ -19,7 +19,7 @@ from pathlib import Path
 
 FOLDER = Path(__file__).resolve().parents[1] / "data" / "upstream"
 # Some of the sites refuse requests without a browser-like agent.
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; nthweekday-fetch)"}
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; monthweekday-fetch)"}
 
 
 def main(argv: list[str]) -> int:

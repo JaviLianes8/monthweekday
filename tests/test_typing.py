@@ -10,12 +10,12 @@ from pathlib import Path
 
 import pytest
 
-import nthweekday
+import monthweekday
 
 CALLER = """\
 from datetime import date
 
-from nthweekday import (
+from monthweekday import (
     ByDay, Weekday, byday_dates, last_weekday, next_weekday, nth_weekday,
     nth_weekday_in_year, previous_weekday, week_of_month, weekdays_in_month,
 )
@@ -50,7 +50,7 @@ w = Weekday(**named)
 
 # Each line must be refused with the error code after it.
 REFUSED = """\
-from nthweekday import Weekday
+from monthweekday import Weekday
 
 Weekday(None)  # arg-type
 Weekday("MO")  # arg-type
@@ -66,7 +66,7 @@ PYRIGHT_RULES = {"arg-type": "reportArgumentType", "call-arg": "reportCallIssue"
 
 def _source_root() -> Path | None:
     # From a source tree the package is found through an extra path; installed, through py.typed.
-    root = Path(nthweekday.__file__).resolve().parent.parent
+    root = Path(monthweekday.__file__).resolve().parent.parent
     return None if root.name == "site-packages" else root
 
 

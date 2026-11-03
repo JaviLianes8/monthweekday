@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from nthweekday._cli import main
+from monthweekday._cli import main
 
 
 def _run(capsys: pytest.CaptureFixture[str], *args: str) -> tuple[int, str, str]:

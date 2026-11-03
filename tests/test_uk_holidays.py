@@ -17,7 +17,7 @@ from datetime import date
 import pytest
 from conftest import UPSTREAM, needs, upstream_text
 
-from nthweekday import MONDAY, next_weekday, nth_weekday
+from monthweekday import MONDAY, next_weekday, nth_weekday
 
 EW_NI = {"Spring bank holiday": (5, -1), "Summer bank holiday": (8, -1)}
 SCOTLAND = {"Spring bank holiday": (5, -1), "Summer bank holiday": (8, 1)}

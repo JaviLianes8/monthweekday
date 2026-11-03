@@ -11,8 +11,8 @@ from datetime import date
 
 import pytest
 
-import nthweekday
-from nthweekday import (
+import monthweekday
+from monthweekday import (
     FRIDAY,
     MONDAY,
     ByDay,
@@ -22,8 +22,8 @@ from nthweekday import (
     nth_weekday,
     parse_byday,
 )
-from nthweekday._cli import main
-from nthweekday._weekday import quote
+from monthweekday._cli import main
+from monthweekday._weekday import quote
 
 
 def test_format_gives_the_name_without_a_spec_and_formats_the_number_with_one() -> None:
@@ -175,23 +175,23 @@ def test_an_option_past_the_quote_limit_is_cut(
 
 def test_public_classes_keep_their_source_and_functions_report_the_package() -> None:
     for name in ("ByDay", "NoSuchDayError", "Weekday"):
-        source = inspect.getsource(getattr(nthweekday, name))
+        source = inspect.getsource(getattr(monthweekday, name))
         assert source.startswith(("@dataclass", "class ")), name
         assert re.search(rf"^class {name}[(:]", source, re.M), name
         assert len(source.splitlines()) > 10, name
-    for name in nthweekday.__all__:
-        obj = getattr(nthweekday, name)
+    for name in monthweekday.__all__:
+        obj = getattr(monthweekday, name)
         if inspect.isfunction(obj):
-            assert obj.__module__ == "nthweekday", name
+            assert obj.__module__ == "monthweekday", name
             assert inspect.getsource(obj).startswith(f"def {name}("), name
 
 
 def test_pickles_of_the_classes_load_from_their_defining_modules() -> None:
     import pickle
 
-    for value in (Weekday.MONDAY, ByDay(FRIDAY, -1), nthweekday.NoSuchDayError("x")):
+    for value in (Weekday.MONDAY, ByDay(FRIDAY, -1), monthweekday.NoSuchDayError("x")):
         module = type(value).__module__
-        assert module.startswith("nthweekday.") and module in sys.modules
+        assert module.startswith("monthweekday.") and module in sys.modules
         dumped = pickle.dumps(value)
         assert module.encode() in dumped
         assert repr(pickle.loads(dumped)) == repr(value)

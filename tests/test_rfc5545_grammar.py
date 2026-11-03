@@ -16,7 +16,7 @@ import re
 import pytest
 from conftest import needs, upstream_text
 
-from nthweekday import ByDay, Weekday, parse_byday
+from monthweekday import ByDay, Weekday, parse_byday
 
 RULES = ("bywdaylist", "weekdaynum", "plus", "minus", "ordwk", "weekday")
 TOKEN = re.compile(r'\s*("[^"]*"|\d*\*\d*|\d+|[\[\]()/]|[A-Za-z][A-Za-z0-9-]*)')

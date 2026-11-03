@@ -9,8 +9,8 @@ import typing
 
 import pytest
 
-import nthweekday._weekday
-from nthweekday import Weekday
+import monthweekday._weekday
+from monthweekday import Weekday
 
 
 def test_the_signature_is_one_value_on_every_version() -> None:
@@ -46,7 +46,7 @@ def test_type_checkers_see_a_call_of_one_value_and_nothing_else() -> None:
     # pyright reads Weekday(n) through the metaclass __call__ (mypy through the __new__
     # stub). A signature with extras typed NoReturn would make pyright refuse an unpacked
     # call such as Weekday(*[3]), which runs, so checkers see one value and no extras.
-    tree = ast.parse(inspect.getsource(nthweekday._weekday))
+    tree = ast.parse(inspect.getsource(monthweekday._weekday))
     meta = next(
         n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "_CheckedEnumType"
     )

@@ -1,4 +1,4 @@
-# nthweekday improvement round
+# monthweekday improvement round
 
 Progress:
 - [x] Brainstorm ranked improvements (this file)
@@ -85,7 +85,7 @@ the URL next to them; the holiday rules are written in our own words.
 7. Holiday contracts: the six 5 U.S.C. 6103 rules reproduce every OPM date 2011..2030;
    the 1971 Act rules reproduce every GOV.UK date 2019..2028 except the two dates moved
    by proclamation (VE day 2020, Platinum Jubilee 2022), which are listed by hand.
-8. Command line tool `nthweekday` (and `python -m nthweekday`): `nthweekday 2026-11 4TH`
+8. Command line tool `monthweekday` (and `python -m monthweekday`): `monthweekday 2026-11 4TH`
    prints ISO dates; a bare year expands each month; `--yearly` uses year ordinals.
 9. Runnable docs: every `# ->` line in the README is executed by a test.
 10. Packaging: console script, keywords, classifiers, installed-wheel e2e test, sdist
@@ -105,7 +105,7 @@ Considered and left out:
   are green, with the upstream copies fetched (no skips) and without them (the corpus
   tests skip).
 - Installed-wheel test: the wheel installs into a fresh venv with no runtime
-  dependencies, the `nthweekday` script and `python -m nthweekday` answer as documented,
+  dependencies, the `monthweekday` script and `python -m monthweekday` answer as documented,
   and the sdist carries the manifest but none of the upstream copies.
 - Mutation run: 40 hand-written mutants over every module, `__pycache__` purged before
   each one and no bytecode written; all 40 make the suite fail. One of them (dropping the

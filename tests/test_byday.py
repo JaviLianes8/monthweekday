@@ -6,7 +6,7 @@ from datetime import date
 
 import pytest
 
-from nthweekday import FRIDAY, MONDAY, SUNDAY, ByDay, Weekday, byday_dates, parse_byday
+from monthweekday import FRIDAY, MONDAY, SUNDAY, ByDay, Weekday, byday_dates, parse_byday
 
 
 def test_parse_single_and_list_entries() -> None:

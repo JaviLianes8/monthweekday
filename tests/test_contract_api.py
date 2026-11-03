@@ -9,8 +9,8 @@ from datetime import date
 
 import pytest
 
-import nthweekday
-from nthweekday import (
+import monthweekday
+from monthweekday import (
     FRIDAY,
     MONDAY,
     SATURDAY,
@@ -48,7 +48,7 @@ SIGNATURES = {
 
 @pytest.mark.parametrize("name", sorted(SIGNATURES))
 def test_function_signatures_are_pinned(name: str) -> None:
-    assert str(inspect.signature(getattr(nthweekday, name))) == SIGNATURES[name]
+    assert str(inspect.signature(getattr(monthweekday, name))) == SIGNATURES[name]
 
 
 def test_class_signatures_are_pinned() -> None:
@@ -70,17 +70,17 @@ def test_class_signatures_are_pinned() -> None:
 
 def test_functions_report_the_package_and_classes_their_defining_module() -> None:
     classes = {"ByDay": "_byday", "NoSuchDayError": "_month", "Weekday": "_weekday"}
-    for name in nthweekday.__all__:
+    for name in monthweekday.__all__:
         if not name.isupper():
-            module = f"nthweekday.{classes[name]}" if name in classes else "nthweekday"
-            assert getattr(nthweekday, name).__module__ == module, name
+            module = f"monthweekday.{classes[name]}" if name in classes else "monthweekday"
+            assert getattr(monthweekday, name).__module__ == module, name
     for function in (nth_weekday, parse_byday):
         assert pickle.loads(pickle.dumps(function)) is function
-        assert b"nthweekday._" not in pickle.dumps(function)
+        assert b"monthweekday._" not in pickle.dumps(function)
 
 
 def test_the_package_keeps_no_helper_names_from_its_setup() -> None:
-    assert not {"_obj", "_member", "_func"} & set(vars(nthweekday))
+    assert not {"_obj", "_member", "_func"} & set(vars(monthweekday))
 
 
 def test_return_types_are_plain() -> None:

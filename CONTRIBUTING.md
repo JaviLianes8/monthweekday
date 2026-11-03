@@ -10,7 +10,7 @@ pip install -r requirements-dev.txt
 
 ## Before you open a pull request
 
-- Keep public API in `src/nthweekday/__init__.py`; internals live in `_`-prefixed modules.
+- Keep public API in `src/monthweekday/__init__.py`; internals live in `_`-prefixed modules.
 - Add a test for the behaviour you change. Tests inject time, disk and network; they
   never touch the real thing. `python scripts/fetch_upstream.py` downloads the RFC and
   holiday pages some tests compare with (they skip without them), and `pytest -m e2e`
