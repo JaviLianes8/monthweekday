@@ -8,9 +8,15 @@ All notable changes to this project are documented here. The format follows
 
 ## [1.0.0] - 2026-10-25
 
-The public API is now stable: the twenty names in `nthweekday.__all__`, their parameter
+The public API is now stable: the twenty names in `monthweekday.__all__`, their parameter
 names, defaults, return types and error types follow Semantic Versioning from this
 release on. 0.2.0 was never published to PyPI, so 1.0.0 is the first release there.
+
+### Changed
+
+- The project was developed as `nthweekday`, a name PyPI refused as too close to an
+  existing project; the distribution, the import package and the command are now
+  `monthweekday`. The earlier versions below were never published.
 
 ### Stable
 
@@ -21,7 +27,7 @@ release on. 0.2.0 was never published to PyPI, so 1.0.0 is the first release the
 - Weekdays: `Weekday` and the `MONDAY` to `SUNDAY` constants.
 - Errors: `NoSuchDayError` (a `ValueError`) when the day does not exist, `ValueError`
   for an argument out of range or invalid text, `TypeError` for the wrong type.
-- The `nthweekday` command line tool and `python -m nthweekday`, with exit codes 0, 1
+- The `monthweekday` command line tool and `python -m monthweekday`, with exit codes 0, 1
   and 2.
 
 ### Changed
@@ -49,8 +55,8 @@ release on. 0.2.0 was never published to PyPI, so 1.0.0 is the first release the
   characters of an argument.
 - The command line reads every argument after the first `--` as a value, and a signed
   BYDAY such as `-1FR` as a value wherever it stands, on every Python version.
-  `nthweekday 2026-11 -1FR --` exited 2 on Python 3.10 to 3.13, and a second `--` (as in
-  `nthweekday 2026 -- --`) reached `byday_dates` as an empty list on 3.10 and 3.11, which
+  `monthweekday 2026-11 -1FR --` exited 2 on Python 3.10 to 3.13, and a second `--` (as in
+  `monthweekday 2026 -- --`) reached `byday_dates` as an empty list on 3.10 and 3.11, which
   printed `[] selects no date` and exited 1; it is now an invalid BYDAY value, exit 2.
   Sorting out the arguments takes time linear in their number (it was quadratic), and an
   unknown option given several times is reported once.
@@ -91,8 +97,8 @@ release on. 0.2.0 was never published to PyPI, so 1.0.0 is the first release the
   there).
 - A `str` subclass passed to `parse_byday` or `Weekday.parse` is read as its plain text;
   its own methods (`__repr__`, `upper`, `split`) are no longer called.
-- The functions report `nthweekday` as their module, so pickles of them refer to
-  `nthweekday.<name>`. The classes keep the module that defines them, as in 0.2.0.
+- The functions report `monthweekday` as their module, so pickles of them refer to
+  `monthweekday.<name>`. The classes keep the module that defines them, as in 0.2.0.
 
 ### Added
 
@@ -111,7 +117,7 @@ release on. 0.2.0 was never published to PyPI, so 1.0.0 is the first release the
 - `week_of_month(d, first_weekday)` for weeks that start on another day.
 - RFC 5545 BYDAY support: `ByDay`, `parse_byday` and `byday_dates` with the MONTHLY and
   YEARLY meanings.
-- The `nthweekday` command line tool and `python -m nthweekday`.
+- The `monthweekday` command line tool and `python -m monthweekday`.
 
 ### Changed
 
@@ -124,7 +130,7 @@ release on. 0.2.0 was never published to PyPI, so 1.0.0 is the first release the
 - First release: `nth_weekday`, `last_weekday`, `week_of_month`,
   `weekdays_in_month`, and the `MONDAY` through `SUNDAY` constants.
 
-[Unreleased]: https://github.com/JaviLianes8/nthweekday/commits/main
-[1.0.0]: https://pypi.org/project/nthweekday/1.0.0/
-[0.2.0]: https://github.com/JaviLianes8/nthweekday/tree/5adde425cbd21cd33da7db1c011e4a6c6a067c8a
-[0.1.0]: https://github.com/JaviLianes8/nthweekday/tree/d26b8d67c848c2c96a8583996f286be4099951f8
+[Unreleased]: https://github.com/JaviLianes8/monthweekday/commits/main
+[1.0.0]: https://pypi.org/project/monthweekday/1.0.0/
+[0.2.0]: https://github.com/JaviLianes8/monthweekday/tree/5adde425cbd21cd33da7db1c011e4a6c6a067c8a
+[0.1.0]: https://github.com/JaviLianes8/monthweekday/tree/d26b8d67c848c2c96a8583996f286be4099951f8

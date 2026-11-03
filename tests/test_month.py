@@ -2,7 +2,7 @@ from datetime import date, datetime
 
 import pytest
 
-from nthweekday import (
+from monthweekday import (
     FRIDAY,
     MONDAY,
     SUNDAY,

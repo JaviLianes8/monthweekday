@@ -20,10 +20,10 @@ def _parser() -> argparse.ArgumentParser:
     from . import __version__
 
     parser = argparse.ArgumentParser(
-        prog="nthweekday",
+        prog="monthweekday",
         description="Print the dates a BYDAY value such as 4TH or -1FR selects, one per line.",
-        epilog="examples: nthweekday 2026-11 4TH | nthweekday 2026 -1FR | "
-        "nthweekday --yearly 2026 20MO",
+        epilog="examples: monthweekday 2026-11 4TH | monthweekday 2026 -1FR | "
+        "monthweekday --yearly 2026 20MO",
     )
     parser.add_argument("period", help="YYYY-MM for one month, or YYYY for every month")
     parser.add_argument("byday", help="BYDAY value, for example 1MO,-1FR or TU")
@@ -32,7 +32,7 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="with YYYY, count ordinals within the whole year (BYDAY in a YEARLY rule)",
     )
-    parser.add_argument("--version", action="version", version=f"nthweekday {__version__}")
+    parser.add_argument("--version", action="version", version=f"monthweekday {__version__}")
     return parser
 
 
@@ -93,7 +93,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     except ValueError as exc:
         parser.error(str(exc))
     if not found:
-        print(f"nthweekday: {quote(opts.byday)} selects no date in {opts.period}", file=sys.stderr)
+        print(
+            f"monthweekday: {quote(opts.byday)} selects no date in {opts.period}", file=sys.stderr
+        )
         return 1
     sys.stdout.write("".join(f"{d.isoformat()}\n" for d in found))
     return 0

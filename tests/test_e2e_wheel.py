@@ -15,13 +15,13 @@ from pathlib import Path
 
 import pytest
 
-import nthweekday
+import monthweekday
 
 ROOT = Path(__file__).resolve().parent.parent
 CONSUMER = """\
 from datetime import date
 
-from nthweekday import THURSDAY, ByDay, Weekday, byday_dates, nth_weekday, parse_byday
+from monthweekday import THURSDAY, ByDay, Weekday, byday_dates, nth_weekday, parse_byday
 
 
 class Index:
@@ -53,12 +53,12 @@ def test_wheel_installs_and_the_script_works(tmp_path: Path) -> None:
         [sys.executable, "-m", "pip", "wheel", "--no-deps", "-q", "-w", str(dist), str(ROOT)]
     )
     assert built.returncode == 0, built.stderr
-    wheels = list(dist.glob("nthweekday-*.whl"))
-    assert [w.name for w in wheels] == [f"nthweekday-{nthweekday.__version__}-py3-none-any.whl"]
+    wheels = list(dist.glob("monthweekday-*.whl"))
+    assert [w.name for w in wheels] == [f"monthweekday-{monthweekday.__version__}-py3-none-any.whl"]
     names = zipfile.ZipFile(wheels[0]).namelist()
     for module in ("__init__", "__main__", "_weekday", "_month", "_byday", "_cli"):
-        assert f"nthweekday/{module}.py" in names
-    assert "nthweekday/py.typed" in names
+        assert f"monthweekday/{module}.py" in names
+    assert "monthweekday/py.typed" in names
     assert not [n for n in names if n.startswith(("data/", "tests/", "scripts/"))]
     metadata = next(n for n in names if n.endswith(".dist-info/METADATA"))
     requires = [
@@ -78,7 +78,7 @@ def test_wheel_installs_and_the_script_works(tmp_path: Path) -> None:
     venv.EnvBuilder(with_pip=True, clear=True).create(env_dir)
     bindir = env_dir / ("Scripts" if os.name == "nt" else "bin")
     python = bindir / ("python.exe" if os.name == "nt" else "python")
-    script = bindir / ("nthweekday.exe" if os.name == "nt" else "nthweekday")
+    script = bindir / ("monthweekday.exe" if os.name == "nt" else "monthweekday")
     installed = _run([str(python), "-m", "pip", "install", "-q", "--no-index", str(wheels[0])])
     assert installed.returncode == 0, installed.stderr
     assert script.is_file()
@@ -87,18 +87,18 @@ def test_wheel_installs_and_the_script_works(tmp_path: Path) -> None:
     assert (done.returncode, done.stdout) == (0, "2026-11-26\n")
     done = _run([str(script), "2026", "-1FR"])
     assert done.returncode == 0 and done.stdout.splitlines()[-1] == "2026-12-25"
-    done = _run([str(python), "-m", "nthweekday", "--yearly", "1998", "20MO"])
+    done = _run([str(python), "-m", "monthweekday", "--yearly", "1998", "20MO"])
     assert (done.returncode, done.stdout) == (0, "1998-05-18\n")
-    for command in ([str(script)], [str(python), "-m", "nthweekday"]):
+    for command in ([str(script)], [str(python), "-m", "monthweekday"]):
         done = _run([*command, "2026-09", "5MO"])
         assert (done.returncode, done.stdout) == (1, ""), command
         done = _run([*command, "2026-13", "MO"])
         assert done.returncode == 2 and "month must be in 1..12" in done.stderr, command
     version = _run([str(script), "--version"])
-    assert version.stdout.strip() == f"nthweekday {nthweekday.__version__}"
+    assert version.stdout.strip() == f"monthweekday {monthweekday.__version__}"
 
     probe = (
-        "import nthweekday as n; "
+        "import monthweekday as n; "
         "print(n.nth_weekday(2026, 11, n.THURSDAY, 4), n.parse_byday('-1FR'), n.__file__)"
     )
     shown = _run([str(python), "-c", probe]).stdout
@@ -135,7 +135,7 @@ def test_wheel_installs_and_the_script_works(tmp_path: Path) -> None:
 def test_sdist_ships_the_manifest_but_no_upstream_copies(tmp_path: Path) -> None:
     built = _run([sys.executable, "-m", "build", "--sdist", "--outdir", str(tmp_path), str(ROOT)])
     assert built.returncode == 0, built.stderr
-    (sdist,) = tmp_path.glob("nthweekday-*.tar.gz")
+    (sdist,) = tmp_path.glob("monthweekday-*.tar.gz")
     with tarfile.open(sdist) as archive:
         names = [name.split("/", 1)[1] for name in archive.getnames() if "/" in name]
     assert "data/upstream/MANIFEST.json" in names
@@ -143,7 +143,7 @@ def test_sdist_ships_the_manifest_but_no_upstream_copies(tmp_path: Path) -> None
     assert [n for n in names if n.startswith("data/")] == ["data/upstream/MANIFEST.json"]
     # CONTRIBUTING tells readers to install requirements-dev.txt, so it ships too.
     shipped = ("README.md", "GUIDE.md", "CHANGELOG.md", "CONTRIBUTING.md", "requirements-dev.txt")
-    for doc in (*shipped, "LICENSE", "src/nthweekday/py.typed"):
+    for doc in (*shipped, "LICENSE", "src/monthweekday/py.typed"):
         assert doc in names
     assert not [n for n in names if n.startswith(("IMPROVEMENTS", "CERT-", ".git/", ".github"))]
     assert not [n for n in names if "__pycache__" in n or n.endswith(".pyc")]

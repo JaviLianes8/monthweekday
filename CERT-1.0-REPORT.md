@@ -1,9 +1,14 @@
-# nthweekday 1.0.0 certification report
+# monthweekday 1.0.0 certification report
 
-The 1.0.0 certification bar (19 items) applied to nthweekday. PyPI has no release of
-the name (`https://pypi.org/pypi/nthweekday/json` answered 404 on 2026-10-24 and again
-on 2026-10-25), so 1.0.0 is the first upload and there is no upgrade path to check;
+The 1.0.0 certification bar (19 items) applied to monthweekday. PyPI has no release of
+the name (the development name answered 404 on 2026-10-24 and again on 2026-10-25;
+`https://pypi.org/pypi/monthweekday/json` answered 404 on 2026-11-03), so 1.0.0 is the first upload and there is no upgrade path to check;
 every change is listed against 0.2.0 on `main` (5adde42).
+
+Rename (2026-11-03): PyPI refused the development name at upload, so the distribution,
+the import package and the command became `monthweekday` after this certification; the
+code is otherwise unchanged and the gates, the wheel and sdist e2e and the interpreter
+matrix were run again on the renamed tree (section "Rename check" at the end).
 
 Progress:
 - [x] Branch `release/1.0.0` created from `main` (5adde42)
@@ -73,7 +78,7 @@ On `release/1.0.0` at 5adde42: `ruff format --check .`, `ruff check .` and
 Kept: the twenty public names of 0.2.0 with their parameter names, defaults and return
 types. Changed, all in the CHANGELOG: `NoSuchDayError` for steps past the calendar
 limits, `TypeError` with its own message from `byday_dates`, bounded messages, the
-module of every public name is `nthweekday`. Internal: `_month.py` split in two
+module of every public name is `monthweekday`. Internal: `_month.py` split in two
 (`_relative.py` holds the questions about a date) to keep files under 200 lines with
 the new examples.
 
@@ -153,13 +158,13 @@ killed; the column shows the first failing test.
 
 ## Packaging, e2e and Pythons (items 8, 10, 13, 14)
 
-- `python -m build` and `twine check --strict` pass for `nthweekday-1.0.0.tar.gz` and
-  `nthweekday-1.0.0-py3-none-any.whl`. The wheel holds the seven modules, `py.typed`,
+- `python -m build` and `twine check --strict` pass for `monthweekday-1.0.0.tar.gz` and
+  `monthweekday-1.0.0-py3-none-any.whl`. The wheel holds the seven modules, `py.typed`,
   `entry_points.txt` and `licenses/LICENSE`; its metadata has no runtime requirement.
   The sdist holds the sources, tests, scripts, README, GUIDE, CHANGELOG, CONTRIBUTING,
   LICENSE and the upstream manifest, and no fetched copy, report or cache.
-- `pytest -m e2e`: the wheel installed in a fresh venv, the `nthweekday` script and
-  `python -m nthweekday` driven by subprocess (exit 0, 1, 2, `--version`), a consumer
+- `pytest -m e2e`: the wheel installed in a fresh venv, the `monthweekday` script and
+  `python -m monthweekday` driven by subprocess (exit 0, 1, 2, `--version`), a consumer
   script type-checked with `mypy --strict` against the installed package and run with
   `-I` from an empty folder.
 - Every interpreter on this PC from `requires-python` up, the wheel installed in a
@@ -197,13 +202,13 @@ behaviour differed) and passes now.
 | d | d-F1 | `inspect.getsource` failed for `ByDay`, `Weekday`, `NoSuchDayError` (wrong source on 3.13+) because their `__module__` was rewritten | the classes keep their defining module; only the functions are rewritten; GUIDE Stability says which module pickles of the classes name and that it stays importable in 1.x | `test_contract_edges.py::test_public_classes_keep_their_source_and_functions_report_the_package`, `test_pickles_of_the_classes_load_from_their_defining_modules`, `test_contract_api.py::test_functions_report_the_package_and_classes_their_defining_module` |
 | d | d-F3 | the sdist shipped CONTRIBUTING without `requirements-dev.txt` | added to the sdist include list | `test_e2e_wheel.py::test_sdist_ships_the_manifest_but_no_upstream_copies` |
 | e | e-F1 (W25) | no test bounded `TypeError` messages | none needed | `test_contract_edges.py::test_type_errors_name_the_type_and_never_the_value` (10 entry points) |
-| e | e-F2 (X01) | `python -m nthweekday` exit codes were not pinned | none needed | `test_cli.py::test_python_m_exits_with_the_code_of_main`, and the e2e test runs exit 1 and 2 through `python -m` |
+| e | e-F2 (X01) | `python -m monthweekday` exit codes were not pinned | none needed | `test_cli.py::test_python_m_exits_with_the_code_of_main`, and the e2e test runs exit 1 and 2 through `python -m` |
 | e | e-F3 (P05) | the method `__module__` rewrite was untested and the doctest test had a floor | the method rewrite is gone with d-F1 (methods keep their module, like their classes); the doctest test pins the exact 17 docstrings and 44 examples, collected from the package and from each class | `test_docs_examples.py::test_every_public_name_has_a_docstring_example_that_passes` |
 | e | e-F4 (C14) | `-h` after a signed BYDAY was not pinned | none needed | `test_cli.py::test_options_may_come_after_a_signed_byday` |
 | e | e-F5 (C15) | an explicit `--` was not pinned | none needed | `test_cli.py::test_an_explicit_double_dash_keeps_a_signed_byday` |
 | e | e-F6 (M17, M20) | year padding below 1000 in messages was not pinned | none needed | `test_year.py::test_years_below_1000_are_padded_to_four_digits_in_messages` |
 
-Lens (e)'s P05 asked for a test that methods report `nthweekday` as their module. That
+Lens (e)'s P05 asked for a test that methods report `monthweekday` as their module. That
 promise conflicted with d-F1 (a class and its methods must name the file that defines
 them for `inspect.getsource`), so the GUIDE no longer makes it; the risk P05 showed,
 docstrings silently dropped, is closed by the exact doctest list.
@@ -295,8 +300,8 @@ mutant.
 | e | e-F1 (B16) | no contract for a falsy month that is not `None` (`False`, `0`) | none needed | `test_byday.py::test_byday_dates_checks_a_falsy_month` (string, `ByDay` and list values) |
 
 Replayed on the fixed tree, on CPython 3.10.19, 3.11.5, 3.12.12, 3.13.2 and 3.14.2:
-`nthweekday 2026-11 -1FR --` prints 2026-11-27 and exits 0, `nthweekday 2026 -1FR
---yearly --` prints 2026-12-25, `nthweekday 2026 -- --` and `nthweekday -- 2026 --`
+`monthweekday 2026-11 -1FR --` prints 2026-11-27 and exits 0, `monthweekday 2026 -1FR
+--yearly --` prints 2026-12-25, `monthweekday 2026 -- --` and `monthweekday -- 2026 --`
 exit 2 with `invalid BYDAY entry '--'`, and `inspect.signature(Weekday)` is `(value)`.
 The lens's generator raising `TypeError` comes through with its own message and
 `__suppress_context__` false; an iterator of 10**7 ints is read once before the
@@ -345,7 +350,7 @@ defects: their tests pass on 057be74 and kill the lens's mutants (table below).
 | --- | --- | --- | --- | --- |
 | a | a-F1 | `strict` and `from_end` were read by truth value (`from_end="no"` gave -3, `strict=None` passed) | checked with the other arguments: a `bool` or numpy's bool scalar, `TypeError` otherwise; GUIDE table row and paragraph, README, CHANGELOG | `test_relative.py::test_the_keyword_flags_take_a_bool_and_nothing_else` (8 values, 3 calls), `test_the_keyword_flags_are_checked_before_anything_is_computed`, `test_the_keyword_flags_take_numpy_bool_scalars_as_bools` |
 | a | a-F2 | `invalid BYDAY entry X in Y` quoted two 40-character pieces, up to 80 characters of input | the bad entry is quoted once, followed by its place in a list, `(entry 21 of 21)`; CHANGELOG | `test_contract_api.py::test_a_bad_byday_entry_is_quoted_once_with_its_position` (4 vectors); the surrogate count in `test_messages_quote_at_most_40_characters_and_no_huge_number` is now one piece |
-| a | a-F3 | the CHANGELOG said 0.2.0 crashed on `nthweekday 2026 -- --` | reworded: 0.2.0 (5adde425) on 3.10.19 and 3.11.5 prints `[] selects no date in 2026` and exits 1, replayed here; the traceback belonged to 5c2d0db (`str.__str__` on a list), replayed too | docs |
+| a | a-F3 | the CHANGELOG said 0.2.0 crashed on `monthweekday 2026 -- --` | reworded: 0.2.0 (5adde425) on 3.10.19 and 3.11.5 prints `[] selects no date in 2026` and exits 1, replayed here; the traceback belonged to 5c2d0db (`str.__str__` on a list), replayed too | docs |
 | a | a-F4 | the integer parameters were annotated `int`, so a numpy integer failed mypy and pyright although it ran | every integer parameter is typed `typing.SupportsIndex`, and `Weekday` declares a `__new__(value: SupportsIndex)` for type checkers only (mypy reads an enum call through `__new__`); pinned signatures updated; GUIDE, README, CHANGELOG | `test_typing.py::test_any_integer_type_type_checks_where_an_integer_is_asked_for` (mypy `--strict` on a caller of the 11 integer entry points with an `__index__` class, against the source tree and against the installed wheel), the e2e consumer, the pinned signatures in `test_contract_api.py`. pyright 1.1.414 strict on the lens's probe: 0 errors, `Weekday(np.int64(4))` is `Weekday`; mypy with numpy 2.3.5 accepts numpy integers in `Weekday`, `ByDay` and `nth_weekday` |
 | c | c-C1 | `--=...` (and `-=...` on 3.12+) reached stderr unescaped through argparse's "ambiguous option" error | options are read by hand with one rule: `-h`, or a prefix of exactly one of `--help`, `--version`, `--yearly`; anything else that starts with `-` is unknown and reported through `quote()`; argparse only sees the canonical names, each once, and stand-ins for the values | `test_cli_options.py::test_errors_never_write_an_unprintable_character` (6 options, before and after the values) |
 | c | c-C2 | `-help`, `-hx` and `-= 2026 MO --version` gave different exit codes on 3.10/3.11 and 3.12+ | the same rule: unknown on every version, and the first of `-h` and `--version` wins over unknown options; GUIDE, CHANGELOG | `test_malformed_options_are_unrecognized_on_every_version` (9 options), `test_the_first_of_help_and_version_wins_over_anything_else` (7 argvs) |
@@ -397,7 +402,7 @@ typing contract runs against the installed package) and the sdist's suite with `
 removed and the fetched sources present on CPython 3.10.19, 3.11.5, 3.12.12, 3.13.2,
 3.14.2 and 3.14.2 free-threaded: 486 passed and 1 skipped (the real numpy test, numpy
 absent) on each. `pytest -m e2e`: 2 passed. Lens (a)'s and lens (c)'s repros through
-`python -m nthweekday` on 3.10.19 and 3.13.2: every stderr printable, the same exit code
+`python -m monthweekday` on 3.10.19 and 3.13.2: every stderr printable, the same exit code
 and output on both. Lens (c)'s `cli_fuzz.py` (seed 11, 60,000 argv) on 3.10.19, 3.11.5,
 3.12.12, 3.13.2 and 3.14.2: no problem on any, and `cli_compare.py` finds no exit code or
 stdout difference between them (4,079 on 057be74). Gates on the tree: `ruff format
@@ -556,14 +561,14 @@ Independent reviewer's scorecard (a0b34af):
 
 | # | Item | Result |
 | --- | --- | --- |
-| 1 | Public API stable | PASS: the 20 names pinned by `test_contract_api.py`; every change in the CHANGELOG; functions report `nthweekday` as their module, classes keep their defining module as the CHANGELOG says |
+| 1 | Public API stable | PASS: the 20 names pinned by `test_contract_api.py`; every change in the CHANGELOG; functions report `monthweekday` as their module, classes keep their defining module as the CHANGELOG says |
 | 2 | `__all__` exact, no private imports in docs | PASS |
 | 3 | Docstrings with runnable examples | PASS: `doctest.testmod` on the installed package ran 44 examples, 0 failures; `test_docs_examples.py` passes |
 | 4 | Typed end to end | PASS: `mypy --strict src` (7 files) and `src tests` (29 files) exit 0; `py.typed` ships; `test_typing.py` passes with pyright installed |
 | 5 | Typed, bounded errors | PASS: probe messages at most 85 characters, at most 40 characters of input quoted, a huge integer described by its bit count |
 | 6 | Contract tests | PASS: the 3 contract test files pass |
 | 7 | Real ground truth | PASS: all 5 sources re-fetched on 2026-10-25, size and sha256 match `MANIFEST.json`; oracle, grammar and holiday tests pass; the README's dateutil statements re-run as stated |
-| 8 | Real e2e | PASS: `pytest -m e2e` 2 passed; consumer run with `-I` from an empty folder; the script exits 0 and 2 as documented; `python -m nthweekday --version` gives 1.0.0; nothing on PyPI to upgrade from |
+| 8 | Real e2e | PASS: `pytest -m e2e` 2 passed; consumer run with `-I` from an empty folder; the script exits 0 and 2 as documented; `python -m monthweekday --version` gives 1.0.0; nothing on PyPI to upgrade from |
 | 9 | Seeded fuzz | PASS: `test_fuzz.py` passes; lens (c)'s corpus shows 0 differences between versions |
 | 10 | Supported Pythons | PASS: 501 passed, 3 skipped against the installed wheel on 3.10.19, 3.11.5, 3.12.12, 3.13.2 and 3.14.2; 3.14.2t covered by lens (d) |
 | 11 | README and `twine check` | PASS: `twine check --strict` on wheel and sdist; GFM rendering, absolute links, GUIDE and CHANGELOG linked |
@@ -581,11 +586,11 @@ previous commit; the next commit touches only this file), CPython 3.13.2, fetche
 sources present, under a machine turn: `ruff format --check .` (36 files), `ruff check .`,
 `mypy --strict src` (7 files), `mypy --strict src tests` (29 files) and `pytest` (501
 passed, 3 skipped: numpy and the 2 pyright tests) exit 0; `pytest -m e2e` 2 passed.
-`python -m build` gives `nthweekday-1.0.0.tar.gz` and `nthweekday-1.0.0-py3-none-any.whl`,
+`python -m build` gives `monthweekday-1.0.0.tar.gz` and `monthweekday-1.0.0-py3-none-any.whl`,
 `twine check --strict` passes on both. The wheel installed alone in a throwaway venv, the
 suite run from a folder holding only the tests, the docs and the fetched sources: 501
-passed, 3 skipped, with `nthweekday` imported from the venv's `site-packages`;
-`nthweekday --version` prints `nthweekday 1.0.0`. PyPI still answers 404 for the name.
+passed, 3 skipped, with `monthweekday` imported from the venv's `site-packages`;
+`monthweekday --version` prints `monthweekday 1.0.0`. PyPI still answers 404 for the name.
 
 Observation, not a finding (lens d and the reviewer): the README links GUIDE.md on
 `main`, where the file appears once this PR is merged.

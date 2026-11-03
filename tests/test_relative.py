@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 
 import pytest
 
-from nthweekday import (
+from monthweekday import (
     MONDAY,
     SATURDAY,
     SUNDAY,

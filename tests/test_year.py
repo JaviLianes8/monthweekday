@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from nthweekday import FRIDAY, MONDAY, THURSDAY, NoSuchDayError, nth_weekday_in_year
+from monthweekday import FRIDAY, MONDAY, THURSDAY, NoSuchDayError, nth_weekday_in_year
 
 
 def test_first_and_last_of_the_year() -> None:
@@ -35,7 +35,7 @@ def test_rejects_bools(args: tuple[object, ...]) -> None:
 
 
 def test_ordinal_words_use_the_right_suffix() -> None:
-    from nthweekday._month import _ordinal_words
+    from monthweekday._month import _ordinal_words
 
     words = {n: _ordinal_words(n) for n in (1, 5, 6, 11, 12, 13, 21, 22, 23, 31, 52, 53)}
     assert words == {
@@ -56,7 +56,7 @@ def test_ordinal_words_use_the_right_suffix() -> None:
 
 
 def test_years_below_1000_are_padded_to_four_digits_in_messages() -> None:
-    from nthweekday import NoSuchDayError, nth_weekday
+    from monthweekday import NoSuchDayError, nth_weekday
 
     with pytest.raises(NoSuchDayError, match=r"^0002 has no 53rd Monday$"):
         nth_weekday_in_year(2, MONDAY, 53)

@@ -26,7 +26,7 @@ class ByDay:
     ``None`` for every such weekday in the period, or 1..53 / -53..-1.
     ``str()`` gives the canonical RFC 5545 form. Frozen and hashable.
 
-    >>> from nthweekday import FRIDAY
+    >>> from monthweekday import FRIDAY
     >>> ByDay(FRIDAY, -1)
     ByDay(Weekday.FRIDAY, -1)
     >>> str(ByDay(FRIDAY, -1))

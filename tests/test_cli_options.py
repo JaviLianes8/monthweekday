@@ -10,8 +10,8 @@ from collections.abc import Callable
 
 import pytest
 
-from nthweekday import __version__
-from nthweekday._cli import main
+from monthweekday import __version__
+from monthweekday._cli import main
 
 
 def _run(capsys: pytest.CaptureFixture[str], *args: str) -> tuple[int, str, str]:
@@ -83,9 +83,9 @@ def test_the_first_of_help_and_version_wins_over_anything_else(
     code, out, err = _run(capsys, *args)
     assert (code, err) == (0, "")
     if shown == "version":
-        assert out == f"nthweekday {__version__}\n"
+        assert out == f"monthweekday {__version__}\n"
     else:
-        assert out.startswith("usage: nthweekday ")
+        assert out.startswith("usage: monthweekday ")
 
 
 def test_the_long_option_guard_starts_past_40_characters(

@@ -9,11 +9,11 @@ if (git status --porcelain) { throw "The working tree is not clean. Commit or re
 $version = (Select-String -Path pyproject.toml -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value
 $taken = $true
 try {
-    Invoke-WebRequest -UseBasicParsing "https://pypi.org/pypi/nthweekday/$version/json" | Out-Null
+    Invoke-WebRequest -UseBasicParsing "https://pypi.org/pypi/monthweekday/$version/json" | Out-Null
 } catch {
     if ($_.Exception.Response.StatusCode.value__ -eq 404) { $taken = $false } else { throw }
 }
-if ($taken) { throw "nthweekday $version is already on PyPI. Bump the version first." }
+if ($taken) { throw "monthweekday $version is already on PyPI. Bump the version first." }
 
 $token = $env:PYPI_TOKEN
 if (-not $token -and (Test-Path "C:\secrets\pypi-token.txt")) {

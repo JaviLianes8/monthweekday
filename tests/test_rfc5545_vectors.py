@@ -13,7 +13,7 @@ from datetime import date
 import pytest
 from conftest import needs, upstream_text
 
-from nthweekday import byday_dates
+from monthweekday import byday_dates
 
 # (RRULE line, dates as printed, expected dates). Monthly rules are asked month by month.
 MONTHLY = [

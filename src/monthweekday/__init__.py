@@ -23,7 +23,7 @@ SUNDAY = Weekday.SUNDAY
 
 __version__ = "1.0.0"
 
-# The functions show and pickle as nthweekday.<name> and doctest finds them from the
+# The functions show and pickle as monthweekday.<name> and doctest finds them from the
 # package. The classes keep the module that defines them, where inspect.getsource looks.
 for _func in (
     byday_dates,

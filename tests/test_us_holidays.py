@@ -13,7 +13,7 @@ from datetime import date, datetime
 import pytest
 from conftest import needs, upstream_text
 
-from nthweekday import MONDAY, THURSDAY, nth_weekday
+from monthweekday import MONDAY, THURSDAY, nth_weekday
 
 # OPM name -> (month, weekday, n, the statute's wording of the rule)
 RULES = {

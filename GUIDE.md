@@ -1,4 +1,4 @@
-# nthweekday guide
+# monthweekday guide
 
 The behaviour of every public name in detail. Each Python block below runs as a test:
 every `expression  # -> value` line must hold.
@@ -12,7 +12,7 @@ weekday is asked for, and the members work anywhere an int does.
 ```python
 from datetime import date
 
-from nthweekday import FRIDAY, MONDAY, SUNDAY, THURSDAY, Weekday
+from monthweekday import FRIDAY, MONDAY, SUNDAY, THURSDAY, Weekday
 
 FRIDAY == 4  # -> True
 date(2026, 10, 23).weekday() == FRIDAY  # -> True
@@ -72,7 +72,7 @@ never repeat the value of an argument of the wrong type.
 - `TypeError`: an argument of the wrong type.
 
 ```python
-from nthweekday import NoSuchDayError, nth_weekday
+from monthweekday import NoSuchDayError, nth_weekday
 
 try:
     nth_weekday(2026, 9, MONDAY, 5)
@@ -85,7 +85,7 @@ isinstance(NoSuchDayError("x"), ValueError)  # -> True
 ## The nth weekday of a month
 
 ```python
-from nthweekday import last_weekday, weekdays_in_month
+from monthweekday import last_weekday, weekdays_in_month
 
 nth_weekday(2026, 11, THURSDAY, 4)  # -> date(2026, 11, 26)
 nth_weekday(2026, 10, FRIDAY, -2)  # -> date(2026, 10, 23)
@@ -101,7 +101,7 @@ so only `5` and `-5` can raise `NoSuchDayError`. `last_weekday` is `nth_weekday`
 ## The nth weekday of a year
 
 ```python
-from nthweekday import nth_weekday_in_year
+from monthweekday import nth_weekday_in_year
 
 nth_weekday_in_year(1998, MONDAY, 20)  # -> date(1998, 5, 18)
 nth_weekday_in_year(2026, MONDAY, -1)  # -> date(2026, 12, 28)
@@ -114,7 +114,7 @@ This is how RFC 5545 counts a numbered BYDAY in a YEARLY rule without BYMONTH. A
 ## Questions about a date
 
 ```python
-from nthweekday import next_weekday, ordinal_of, previous_weekday, week_of_month
+from monthweekday import next_weekday, ordinal_of, previous_weekday, week_of_month
 
 ordinal_of(date(2026, 11, 26))  # -> 4
 ordinal_of(date(2026, 11, 26), from_end=True)  # -> -1
@@ -138,7 +138,7 @@ previous_weekday(date(2026, 10, 12), FRIDAY)  # -> date(2026, 10, 9)
 ## RFC 5545 BYDAY
 
 ```python
-from nthweekday import ByDay, byday_dates, parse_byday
+from monthweekday import ByDay, byday_dates, parse_byday
 
 parse_byday("1SU,-1SU")  # -> (ByDay(Weekday.SUNDAY, 1), ByDay(Weekday.SUNDAY, -1))
 parse_byday("+02mo")  # -> (ByDay(Weekday.MONDAY, 2),)
@@ -176,13 +176,13 @@ them, and returns the dates selected, sorted and without duplicates:
 
 ## Command line
 
-The `nthweekday` script (and `python -m nthweekday`) prints the dates a BYDAY value
+The `monthweekday` script (and `python -m monthweekday`) prints the dates a BYDAY value
 selects, one ISO date per line:
 
 ```
-nthweekday 2026-11 4TH            # one month
-nthweekday 2026 -1FR              # each month of 2026
-nthweekday --yearly 1998 20MO     # ordinals counted within the year
+monthweekday 2026-11 4TH            # one month
+monthweekday 2026 -1FR              # each month of 2026
+monthweekday --yearly 1998 20MO     # ordinals counted within the year
 ```
 
 A signed value such as `-1FR` is never taken for an option, and every argument after
@@ -197,9 +197,9 @@ Python string literal, so it never writes a control character to the terminal.
 
 ## Stability
 
-From 1.0.0 on, the names in `nthweekday.__all__`, their parameter names, defaults,
+From 1.0.0 on, the names in `monthweekday.__all__`, their parameter names, defaults,
 return types and error types follow Semantic Versioning. The functions report
-`nthweekday` as their module. `Weekday`, `ByDay` and `NoSuchDayError` report the module
+`monthweekday` as their module. `Weekday`, `ByDay` and `NoSuchDayError` report the module
 that defines them, so that `inspect.getsource` and debuggers find their code; pickles of
 them name that module, and it stays importable under that name in every 1.x release.
 Messages of errors are for people and may be reworded in a minor release; their types

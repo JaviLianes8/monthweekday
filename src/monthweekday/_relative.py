@@ -44,7 +44,7 @@ def week_of_month(d: date, first_weekday: SupportsIndex = Weekday.MONDAY) -> int
     Weeks start on Monday unless told otherwise.
 
     >>> from datetime import date
-    >>> from nthweekday import SUNDAY
+    >>> from monthweekday import SUNDAY
     >>> week_of_month(date(2026, 11, 2))
     2
     >>> week_of_month(date(2026, 11, 2), SUNDAY)
@@ -76,7 +76,7 @@ def next_weekday(d: date, weekday: SupportsIndex, *, strict: bool = False) -> da
     the answer would fall after the year 9999.
 
     >>> from datetime import date
-    >>> from nthweekday import MONDAY
+    >>> from monthweekday import MONDAY
     >>> next_weekday(date(2026, 10, 12), MONDAY)
     datetime.date(2026, 10, 12)
     >>> next_weekday(date(2026, 10, 12), MONDAY, strict=True)
@@ -92,7 +92,7 @@ def previous_weekday(d: date, weekday: SupportsIndex, *, strict: bool = False) -
     the answer would fall before the year 1.
 
     >>> from datetime import date
-    >>> from nthweekday import FRIDAY
+    >>> from monthweekday import FRIDAY
     >>> previous_weekday(date(2026, 10, 12), FRIDAY)
     datetime.date(2026, 10, 9)
     """

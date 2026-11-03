@@ -9,7 +9,7 @@ from datetime import date, datetime
 
 import pytest
 
-from nthweekday import (
+from monthweekday import (
     NoSuchDayError,
     byday_dates,
     nth_weekday,

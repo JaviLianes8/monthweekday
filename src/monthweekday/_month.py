@@ -17,7 +17,7 @@ class NoSuchDayError(ValueError):
     A ``ValueError`` subclass, so code that catches ``ValueError`` keeps working, while
     ``except NoSuchDayError`` tells an absent day apart from a bad argument.
 
-    >>> from nthweekday import MONDAY, nth_weekday
+    >>> from monthweekday import MONDAY, nth_weekday
     >>> try:
     ...     nth_weekday(2026, 9, MONDAY, 5)
     ... except NoSuchDayError as error:
@@ -55,7 +55,7 @@ def weekdays_in_month(
 ) -> list[date]:
     """Every date in the month that falls on ``weekday`` (Monday=0), in order.
 
-    >>> from nthweekday import MONDAY
+    >>> from monthweekday import MONDAY
     >>> [d.day for d in weekdays_in_month(2026, 10, MONDAY)]
     [5, 12, 19, 26]
     """
@@ -73,7 +73,7 @@ def nth_weekday(
     fifth Monday in a month with four, ``ValueError`` for an argument out of range and
     ``TypeError`` for one that is not an integer.
 
-    >>> from nthweekday import FRIDAY, THURSDAY
+    >>> from monthweekday import FRIDAY, THURSDAY
     >>> nth_weekday(2026, 11, THURSDAY, 4)
     datetime.date(2026, 11, 26)
     >>> nth_weekday(2026, 10, FRIDAY, -2)
@@ -88,7 +88,7 @@ def nth_weekday(
 def last_weekday(year: SupportsIndex, month: SupportsIndex, weekday: SupportsIndex) -> date:
     """The last ``weekday`` of the month (Monday=0); every month has one.
 
-    >>> from nthweekday import MONDAY
+    >>> from monthweekday import MONDAY
     >>> last_weekday(2026, 5, MONDAY)
     datetime.date(2026, 5, 25)
     """
@@ -101,7 +101,7 @@ def nth_weekday_in_year(year: SupportsIndex, weekday: SupportsIndex, n: Supports
     ``n`` is 1..53 or -53..-1. Raises ``NoSuchDayError`` for a 53rd occurrence in a
     year that has only 52.
 
-    >>> from nthweekday import MONDAY
+    >>> from monthweekday import MONDAY
     >>> nth_weekday_in_year(1998, MONDAY, 20)
     datetime.date(1998, 5, 18)
     >>> nth_weekday_in_year(2026, MONDAY, -1)

@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-import nthweekday
+import monthweekday
 
 ROOT = Path(__file__).resolve().parent.parent
 BLOCK = re.compile(r"```python\n(.*?)```", re.S)
@@ -42,7 +42,7 @@ def test_documented_results_are_true(name: str, count: int) -> None:
 def test_docs_use_only_public_names() -> None:
     for name in ("README.md", "GUIDE.md"):
         text = (ROOT / name).read_text(encoding="utf-8")
-        assert not re.search(r"nthweekday\._[a-z]|from \._", text), name
+        assert not re.search(r"monthweekday\._[a-z]|from \._", text), name
 
 
 # Every docstring with an example; the classes keep their defining module (so that
@@ -70,14 +70,14 @@ DOCTESTS = {
 
 def test_every_public_name_has_a_docstring_example_that_passes() -> None:
     finder = doctest.DocTestFinder()
-    tests = finder.find(nthweekday)
+    tests = finder.find(monthweekday)
     for name in ("ByDay", "NoSuchDayError", "Weekday"):
-        tests += finder.find(getattr(nthweekday, name))
-    found = {t.name.removeprefix("nthweekday."): len(t.examples) for t in tests if t.examples}
+        tests += finder.find(getattr(monthweekday, name))
+    found = {t.name.removeprefix("monthweekday."): len(t.examples) for t in tests if t.examples}
     assert found == DOCTESTS
-    constants = {name for name in nthweekday.__all__ if name.isupper()}
+    constants = {name for name in monthweekday.__all__ if name.isupper()}
     # The day constants are Weekday members: their examples are those of Weekday.
-    assert {name.split(".")[0] for name in found} == set(nthweekday.__all__) - constants
+    assert {name.split(".")[0] for name in found} == set(monthweekday.__all__) - constants
     runner = doctest.DocTestRunner(optionflags=doctest.ELLIPSIS)
     for test in tests:
         runner.run(test)

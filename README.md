@@ -1,4 +1,4 @@
-# nthweekday
+# monthweekday
 
 [![Lianes8 Certified](https://lianes8studio.com/certified/lianes8-certified-badge.svg)](https://lianes8studio.com/certified)
 
@@ -9,7 +9,7 @@ dependencies.
 ## Install
 
 ```
-pip install nthweekday
+pip install monthweekday
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ pip install nthweekday
 ```python
 from datetime import date
 
-from nthweekday import (
+from monthweekday import (
     FRIDAY,
     MONDAY,
     SUNDAY,
@@ -83,7 +83,7 @@ while `bool`, `float` and `str` values are refused with `TypeError`. The `strict
 ## RFC 5545 BYDAY
 
 ```python
-from nthweekday import ByDay, byday_dates, nth_weekday_in_year, parse_byday
+from monthweekday import ByDay, byday_dates, nth_weekday_in_year, parse_byday
 
 parse_byday("1SU,-1SU")  # -> (ByDay(Weekday.SUNDAY, 1), ByDay(Weekday.SUNDAY, -1))
 str(ByDay(FRIDAY, -1))  # -> '-1FR'
@@ -105,18 +105,18 @@ numbered one in the same list are combined, as the RFC defines BYDAY as one list
 ## Command line
 
 ```
-$ nthweekday 2026-11 4TH
+$ monthweekday 2026-11 4TH
 2026-11-26
-$ nthweekday 2026 -1FR        # every month of 2026
+$ monthweekday 2026 -1FR        # every month of 2026
 2026-01-30
 ...
 2026-12-25
-$ nthweekday --yearly 1998 20MO
+$ monthweekday --yearly 1998 20MO
 1998-05-18
 ```
 
 It prints one ISO date per line and exits 0, exits 1 when nothing matched, and 2 on bad
-input. `python -m nthweekday` works the same.
+input. `python -m monthweekday` works the same.
 
 ## How it is tested
 
@@ -141,7 +141,7 @@ input. `python -m nthweekday` works the same.
   fetches them into `data/upstream/`, checked against the pinned manifest, and the tests
   that need them skip until then.
 - Every `# ->` line in this README and in the
-  [GUIDE](https://github.com/JaviLianes8/nthweekday/blob/main/GUIDE.md), and every
+  [GUIDE](https://github.com/JaviLianes8/monthweekday/blob/main/GUIDE.md), and every
   docstring example, is executed by the test suite.
 
 ## Why
@@ -159,20 +159,20 @@ different edges (checked with 2.9.0.post0):
 - `rrule(MONTHLY, byweekday=[MO(20)])` raises `IndexError`; `byday_dates` returns no date
   for a monthly ordinal past the fifth.
 
-`nthweekday` is the small, typed, zero-dependency piece for when the question is just
+`monthweekday` is the small, typed, zero-dependency piece for when the question is just
 which day it is, or which days a BYDAY value selects.
 
 ## Documentation
 
-The [GUIDE](https://github.com/JaviLianes8/nthweekday/blob/main/GUIDE.md) describes every
+The [GUIDE](https://github.com/JaviLianes8/monthweekday/blob/main/GUIDE.md) describes every
 public name, the argument checks and the errors. The
-[CHANGELOG](https://github.com/JaviLianes8/nthweekday/blob/main/CHANGELOG.md) lists what
-changed in each release. From 1.0.0 on, the names in `nthweekday.__all__`, their
+[CHANGELOG](https://github.com/JaviLianes8/monthweekday/blob/main/CHANGELOG.md) lists what
+changed in each release. From 1.0.0 on, the names in `monthweekday.__all__`, their
 signatures, defaults and error types follow Semantic Versioning.
 
 ## License
 
-MIT. See [LICENSE](https://github.com/JaviLianes8/nthweekday/blob/main/LICENSE).
+MIT. See [LICENSE](https://github.com/JaviLianes8/monthweekday/blob/main/LICENSE).
 
 ## Links
 
